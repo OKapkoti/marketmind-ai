@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #0f172a;
+  }
+  
+  .dark {
+    --bg-color: #0f172a;
+    --text-color: #f8fafc;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-primary text-white font-medium px-4 py-2 rounded-lg hover:bg-brand-secondary transition-colors;
+  }
+  .glass-card {
+    @apply bg-white dark:bg-dark-surface border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm;
+  }
+  .input-field {
+    @apply w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-2 focus:ring-2 focus:ring-brand-primary outline-none transition-all text-slate-900 dark:text-slate-100;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
