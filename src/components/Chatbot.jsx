@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Key } from 'lucide-react';
 import { clsx } from 'clsx';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const Chatbot = ({ context }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
@@ -64,8 +66,9 @@ const Chatbot = ({ context }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/chat', {
+      const response = await fetch(`${API_URL}/chat`, {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },

@@ -5,7 +5,7 @@ import InsightsPanel from '../components/InsightsPanel';
 import Chatbot from '../components/Chatbot';
 import { Upload, Play, X, FileSpreadsheet } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const calculateDataQuality = (campaigns) => {
   const totalFields = campaigns.length * 6 // 6 required columns
@@ -190,7 +190,13 @@ const Analysis = () => {
   const [backendStatus, setBackendStatus] = useState('checking');
   
   useEffect(() => {
-    fetch(`${API_URL}/health`)
+    fetch(`${API_URL}/health`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then(res => res.json())
       .then(data => setBackendStatus('connected'))
       .catch(() => setBackendStatus('disconnected'))
@@ -309,6 +315,7 @@ const Analysis = () => {
 
       const response = await fetch(`${API_URL}/analyze`, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestData)
       });
